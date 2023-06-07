@@ -4,9 +4,10 @@ test: # Run unit tests via gotestdox
 build: test # Generate Lambda binaries and terraform configuration files via cue
 	test -d /tmp/aws-marketplace-saas-integration || mkdir /tmp/aws-marketplace-saas-integration
 	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/redirect cmd/redirect/main.go
+	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/landingPage cmd/landingpage/main.go
 	test -d temp || mkdir temp
 	cd temp && test -d .terraform || terraform init
-	cue vet ./...
+	cue vet -c ./...
 	cue export ./... > temp/main.tf.json
 deploy: build # Run terraform apply
 	cd temp && terraform apply

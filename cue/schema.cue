@@ -10,7 +10,7 @@ data: aws_iam_policy_document:
 	[string]:
 		statement: {
 			effect: *"Allow" | "Deny"
-			principals: {
+			principals?: {
 				type: "Service"
 				identifiers: [string]
 			}
@@ -42,6 +42,6 @@ resource: aws_cloudwatch_log_group:
 	}
 resource: aws_lambda_function_url:
 	[string]: {
-		authorization_type: "NONE"
+		authorization_type: string
 		function_name:      string
 	}

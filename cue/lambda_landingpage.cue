@@ -5,20 +5,19 @@ data: archive_file:
 		output_path: "/tmp/aws-marketplace-saas-integration/landingPage.zip"
 		source_file: "/tmp/aws-marketplace-saas-integration/landingPage"
 	}
+
 data: aws_iam_policy_document:
-	assume_role:
+	resolve_customer:
 		statement: {
-			principals: {
-				identifiers: ["lambda.amazonaws.com"]
-			}
-			actions: ["sts:AssumeRole"]
+			actions: ["aws-marketplace:ResolveCustomer"]
 		}
-resource: aws_iam_role:
-	lambda_role: {
-		name: "lambda_role"
+
+output: 
+	marketplace_fulfillment_url: {
+		description: "Lambda Public Endpoint to be configured on Marketplace Fulfillment URL"
+		value: "${aws_lambda_function_url.redirect.function_url}"
 	}
-resource: aws_iam_role_policy_attachment:
-	lambda_landingpage_basic_role: {}
+
 resource: aws_lambda_function:
 	landingpage: {
 		filename:         "${data.archive_file.lambda_landingpage.output_path}"
@@ -27,16 +26,19 @@ resource: aws_lambda_function:
 		source_code_hash: "${filebase64sha256(\"${data.archive_file.lambda_landingpage.output_path}\")}"
 		environment: {
 			variables: {
-				"AMSI_ENTITLEMENT_QUEUE_URL" : "${aws_sqs_queue.entitlement_queue.url}"
-				"AMSI_SUBSCRIBERS_TABLE_NAME" : "${var.subscribers_table_name}"
+				"AMSI_ENTITLEMENT_QUEUE_URL" : "test"
+				"AMSI_SUBSCRIBERS_TABLE_NAME" : "test"
 			}
 		}
 	}
+
 resource: aws_cloudwatch_log_group:
 	landingpage: {
 		name: "/aws/lambda/${aws_lambda_function.landingpage.function_name}"
 	}
+
 resource: aws_lambda_function_url:
 	landingpage: {
+		authorization_type: "NONE"
 		function_name: "${aws_lambda_function.landingpage.function_name}"
 	}
