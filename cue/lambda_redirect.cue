@@ -26,5 +26,5 @@ resource: aws_cloudwatch_log_group:
 resource: aws_lambda_function_url:
 	redirect: {
 		authorization_type: "NONE"
-		function_name: "${aws_lambda_function.redirect.function_name}"
+		function_name:      "${aws_lambda_function.redirect.function_name}"
 	}

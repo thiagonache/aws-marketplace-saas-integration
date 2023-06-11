@@ -6,7 +6,7 @@ data: archive_file:
 		source_file: string
 		type:        "zip"
 	}
-data: aws_iam_policy_document: 
+data: aws_iam_policy_document:
 	[string]:
 		statement: {
 			effect: *"Allow" | "Deny"
