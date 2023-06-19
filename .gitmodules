@@ -1,0 +1,12 @@
+[submodule "cue.mod/pkg/cue.mod/pkg/cueniform.com/x/terraform-core"]
+	path = cue.mod/pkg/cue.mod/pkg/cueniform.com/x/terraform-core
+	url = https://github.com/cueniform/terraform-core-schema
+[submodule "cue.mod/pkg/cue.mod/pkg/cueniform.com/x/cueniform"]
+	path = cue.mod/pkg/cue.mod/pkg/cueniform.com/x/cueniform
+	url = https://github.com/cueniform/cueniform
+[submodule "cue.mod/pkg/cueniform.com/x/cueniform"]
+	path = cue.mod/pkg/cueniform.com/x/cueniform
+	url = https://github.com/cueniform/cueniform
+[submodule "cue.mod/pkg/cueniform.com/x/terraform-core"]
+	path = cue.mod/pkg/cueniform.com/x/terraform-core
+	url = https://github.com/cueniform/terraform-core-schema
