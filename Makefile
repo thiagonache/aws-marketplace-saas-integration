@@ -4,13 +4,14 @@ CUE_DIR=cue
 
 test: # Run unit tests via gotestdox
 	gotestdox ./...
-build: test # Generate Lambda binaries and terraform configuration files via cue
+build: test # Build Lambda binaries 
 	test -d /tmp/aws-marketplace-saas-integration || mkdir /tmp/aws-marketplace-saas-integration
 	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/redirect cmd/redirect/main.go
 	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/landingpage cmd/landingpage/main.go
-deploy: build # Run terraform apply
+generate: build # Generate terraform configuration files via CUE
 	test -d ${TEMP_DIR} || mkdir ${TEMP_DIR}
-	cd ${CUE_DIR} && cue export -e cueniform -f -o ../${TEMP_DIR}/config.tf.json 
+	cd ${CUE_DIR} && cue export -e cueniform -f -o ../${TEMP_DIR}/config.tf.json
+deploy: generate # Run terraform apply
 	cd ${TEMP_DIR} && test -d .terraform || terraform init && terraform apply
 shutdown: build # Run terraform destroy
 	cd ${TEMP_DIR} && terraform destroy

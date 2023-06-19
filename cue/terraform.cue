@@ -52,6 +52,9 @@ configuration: resource: {
 		authorization_type: "NONE"
 		function_name:      "${aws_lambda_function.redirect.function_name}"
 	}
+	aws_cloudwatch_log_group: lambda_redirect: {
+		name: "/aws/lambda/${aws_lambda_function.redirect.function_name}"
+	}
 	aws_lambda_function: landingpage: {
 		environment: {
 			variables: {}
@@ -65,8 +68,17 @@ configuration: resource: {
 		authorization_type: "NONE"
 		function_name:      "${aws_lambda_function.landingpage.function_name}"
 	}
-	aws_cloudwatch_log_group: lambda_redirect: {
-		name: "/aws/lambda/${aws_lambda_function.redirect.function_name}"
+	aws_cloudwatch_log_group: lambda_landingpage: {
+		name: "/aws/lambda/${aws_lambda_function.landingpage.function_name}"
+	}
+	aws_dynamodb_table: subscribers: {
+		attribute: {
+			name: "customerIdentifier"
+			type: "S"
+		}
+		billing_mode: "PAY_PER_REQUEST"
+		hash_key:     "customerIdentifier"
+		name:         "subscribers"
 	}
 }
 configuration: terraform: {

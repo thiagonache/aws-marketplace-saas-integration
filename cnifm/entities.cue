@@ -7,6 +7,7 @@ entities: {
 			effect: *"Allow" | "Deny"
 			principals: {
 				identifiers: [string]
+				type: string
 				type: "Service"
 			}
 		}
@@ -22,6 +23,7 @@ entities: {
 	archive_file: #DataSource: {
 		output_path: string
 		source_file: string
+		type:        string
 		type:        "zip"
 	}
 	aws_cloudwatch_log_group: #Resource: {
@@ -45,5 +47,14 @@ entities: {
 	aws_lambda_function_url: #Resource: {
 		authorization_type: string
 		function_name:      string
+	}
+	aws_dynamodb_table: #Resource: {
+		name!:        string // I'm not sure if this can be required
+		billing_mode: "PROVISIONED" | "PAY_PER_REQUEST"
+		hash_key:     string
+		attribute: {
+			name: string
+			type: "S" | "N" | "B"
+		}
 	}
 }
