@@ -55,7 +55,7 @@ entities: {
 		function_name:      string
 	}
 	aws_dynamodb_table: #Resource: {
-		name!:        string // I'm not sure if this should be required
+		name!:        string
 		billing_mode: "PROVISIONED" | "PAY_PER_REQUEST"
 		hash_key:     string
 		attribute: {
@@ -64,7 +64,8 @@ entities: {
 		}
 	}
 	aws_sqs_queue: #Resource: {
-
+		name!:                   string
+		sqs_managed_sse_enabled: *true | false
+		...
 	}
-
 }
