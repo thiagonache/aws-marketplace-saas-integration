@@ -1,15 +1,22 @@
 package cnifm
 
 entities: {
+	aws_iam_policy: #Resource: {
+		name:        string
+		path:        string
+		description: string
+		policy:      string
+	}
 	aws_iam_policy_document: #DataSource: {
 		statement: {
 			actions: [string]
 			effect: *"Allow" | "Deny"
-			principals: {
+			principals?: {
 				identifiers: [string]
 				type: string
 				type: "Service"
 			}
+			resources?: [string]
 		}
 	}
 	aws_iam_role: #Resource: {
@@ -39,7 +46,6 @@ entities: {
 		function_name:    string
 		handler:          string
 		role:             string
-		role:             "${aws_iam_role.lambda_role.arn}"
 		runtime:          string
 		runtime:          "go1.x"
 		source_code_hash: string
@@ -49,7 +55,7 @@ entities: {
 		function_name:      string
 	}
 	aws_dynamodb_table: #Resource: {
-		name!:        string // I'm not sure if this can be required
+		name!:        string // I'm not sure if this should be required
 		billing_mode: "PROVISIONED" | "PAY_PER_REQUEST"
 		hash_key:     string
 		attribute: {
@@ -57,4 +63,8 @@ entities: {
 			type: "S" | "N" | "B"
 		}
 	}
+	aws_sqs_queue: #Resource: {
+
+	}
+
 }
