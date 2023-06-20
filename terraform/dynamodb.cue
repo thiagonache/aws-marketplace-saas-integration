@@ -8,6 +8,5 @@ configuration: resource: {
 		}
 		billing_mode: "PAY_PER_REQUEST"
 		hash_key:     "customerIdentifier"
-		name:         "subscribers"
 	}
 }

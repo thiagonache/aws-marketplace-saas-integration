@@ -8,6 +8,7 @@ build: test # Build Lambda binaries
 	test -d /tmp/aws-marketplace-saas-integration || mkdir /tmp/aws-marketplace-saas-integration
 	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/redirect cmd/redirect/main.go
 	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/landingpage cmd/landingpage/main.go
+	env GOARCH=amd64 GOOS=linux go build -o /tmp/aws-marketplace-saas-integration/entitlement cmd/entitlement/main.go
 generate: build # Generate terraform configuration files via CUE
 	test -d $(TEMP_DIR) || mkdir $(TEMP_DIR)
 	cue export ./$(CUE_DIR) -e cueniform -f -o $(TEMP_DIR)/config.tf.json

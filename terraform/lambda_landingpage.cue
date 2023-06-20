@@ -11,7 +11,7 @@ configuration: data: {
 	aws_iam_policy_document: lambda_landingpage_sendmessage: {
 		statement: {
 			actions: ["sqs:SendMessage"]
-			resources: ["${aws_sqs_queue.entitlement.arn}"]
+			resources: ["${aws_sqs_queue.marketplace_entitlement.arn}"]
 		}
 	}
 	aws_iam_policy_document: lambda_landingpage_putitem: {
@@ -40,7 +40,6 @@ configuration: resource: {
 		role:       resource.aws_iam_role.lambda_landingpage_role.name
 	}
 	aws_iam_policy: marketplace_metering_resolve_customer: {
-		name:        "marketplace_metering_resolve_customer"
 		path:        "/"
 		description: "Policy to allow lambda to call resolve customer marketplace metering API"
 		policy:      "${data.aws_iam_policy_document.lambda_landingpage_resolvecustomer.json}"
@@ -50,7 +49,6 @@ configuration: resource: {
 		role:       resource.aws_iam_role.lambda_landingpage_role.name
 	}
 	aws_iam_policy: sqs_send_message: {
-		name:        "sqs_send_message"
 		path:        "/"
 		description: "Policy to allow lambda to call send message SQS API"
 		policy:      "${data.aws_iam_policy_document.lambda_landingpage_sendmessage.json}"
@@ -60,7 +58,6 @@ configuration: resource: {
 		role:       resource.aws_iam_role.lambda_landingpage_role.name
 	}
 	aws_iam_policy: dynamodb_put_item: {
-		name:        "dynamodb_put_item"
 		path:        "/"
 		description: "Policy to allow lambda to call put item Dynamodb API"
 		policy:      "${data.aws_iam_policy_document.lambda_landingpage_sendmessage.json}"
@@ -72,7 +69,7 @@ configuration: resource: {
 	aws_lambda_function: landingpage: {
 		environment: {
 			variables: {
-				"AMSI_ENTITLEMENT_QUEUE_URL":  "${resource.aws_sqs_queue.entitlement.url}"
+				"AMSI_ENTITLEMENT_QUEUE_URL":  "${resource.aws_sqs_queue.marketplace_entitlement.url}"
 				"AMSI_SUBSCRIBERS_TABLE_NAME": resource.aws_dynamodb_table.subscribers.name
 			}
 		}

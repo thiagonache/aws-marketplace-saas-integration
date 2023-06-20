@@ -1,5 +1,5 @@
 package terraform
 
 configuration: resource: {
-	aws_sqs_queue: entitlement: {}
+	aws_sqs_queue: marketplace_entitlement: {}
 }

@@ -34,7 +34,7 @@ entities: {
 		type:        "zip"
 	}
 	aws_cloudwatch_log_group: #Resource: {
-		name:              string
+		name!:             string
 		retention_in_days: uint
 		retention_in_days: 30 & >=30
 	}
