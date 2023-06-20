@@ -5,3 +5,7 @@ Example of serverless integration for SaaS products listed on the AWS Marketplac
 Heavly inspired by [AWS original
 example](https://github.com/aws-samples/aws-marketplace-serverless-saas-integration)
 but using Go instead of Javascript.
+
+## Architecture
+
+![Architecture](img/aws-marketplace-saas-integration.png)
